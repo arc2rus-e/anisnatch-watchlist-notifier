@@ -25,7 +25,7 @@ A small Chrome extension that keeps an eye on your [AniSnatch](https://anisnatch
 
 The extension isn't on the Chrome Web Store, so you add it by hand. It takes about a minute.
 
-1. **Download and unzip** the extension. Put the unzipped folder somewhere permanent, such as your Documents folder. Chrome loads the extension from this folder every time it starts, so don't delete it or leave it in Downloads if you clear that out.
+1. **Download and unzip** the extension: grab the `.zip` from the [latest release](https://github.com/arc2rus-e/anisnatch-watchlist-notifier/releases/latest) (the official download). Put the unzipped folder somewhere permanent, such as your Documents folder. Chrome loads the extension from this folder every time it starts, so don't delete it or leave it in Downloads if you clear that out.
 2. **Open the extensions page:** type `chrome://extensions` in the address bar and press Enter.
 3. **Turn on Developer mode** with the switch in the **top-right corner**.
 4. **Click "Load unpacked"**, the button that appears at the top-left.
