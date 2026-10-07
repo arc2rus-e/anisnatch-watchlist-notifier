@@ -58,6 +58,10 @@ On `chrome://extensions`, click **Remove** on the extension's card. You can then
 
 This is a free side project. If it saves you from missing episodes, you can [buy me a bowl of ramen on Ko-fi](https://ko-fi.com/elyss0n) 🍜. It helps me keep it maintained.
 
+## License
+
+Copyright © 2026 Arcturus. Released under the [GNU GPL v3](LICENSE): you're free to use, study and modify it, but if you share a modified version you must publish its source under the same licence and keep this copyright notice.
+
 ---
 
 *Unofficial fan-made tool. Not affiliated with or endorsed by AniSnatch.*
