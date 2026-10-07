@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      :root {
+        --primary-bg: #0b1622;
+        --secondary-bg: #151f2e;
+        --primary: #ffe8f6;
+        --secondary: #d8b2ab;
+        --primary-focus: #ffbade;
+        --track: #86e3ce;
+        --menu-bg: rgba(255, 255, 255, 0.05);
+        --menu-focus: rgba(255, 255, 255, 0.075);
+        --border-hr: rgba(255, 255, 255, 0.1);
+      }
+      body {
+        font-family: "Lexend Deca", system-ui, sans-serif;
+        width: 380px;
+        padding: 12px;
+        background: var(--primary-bg);
+        color: var(--primary);
+      }
+      .head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+      h1 {
+        font-size: 14px;
+        margin: 0;
+        color: var(--primary);
+      }
+      #openSettings {
+        color: var(--secondary);
+        text-decoration: none;
+        font-size: 16px;
+        line-height: 1;
+      }
+      #openSettings:hover {
+        color: var(--track);
+      }
+      h1 a {
+        color: inherit;
+        text-decoration: none;
+      }
+      h1 a:hover {
+        color: var(--track);
+        text-decoration: underline;
+      }
+      #status {
+        font-size: 12px;
+        color: var(--secondary);
+        margin-bottom: 10px;
+      }
+      button {
+        width: 100%;
+        padding: 6px;
+        cursor: pointer;
+        background: var(--menu-bg);
+        color: var(--primary-focus);
+        border: 1px solid var(--border-hr);
+        border-radius: 4px;
+        font-family: inherit;
+        font-size: 12px;
+      }
+      button:hover {
+        background: var(--menu-focus);
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 10px 0 0;
+        max-height: 240px;
+        overflow-y: auto;
+      }
+      li {
+        font-size: 12px;
+        padding: 6px;
+        border-bottom: 1px solid var(--border-hr);
+        background: var(--secondary-bg);
+      }
+      li + li {
+        margin-top: 2px;
+      }
+      li .row {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+      }
+      li a {
+        color: var(--primary);
+        text-decoration: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        min-width: 0;
+      }
+      li a:hover {
+        text-decoration: underline;
+        color: var(--track);
+      }
+      li .row span {
+        color: var(--secondary);
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      li .row span .eplink {
+        color: var(--primary-focus);
+        font-weight: 600;
+      }
+      li .row span .eplink:hover {
+        text-decoration: underline;
+      }
+      li .row span .detail {
+        color: var(--secondary);
+        font-size: 10px;
+        opacity: 0.8;
+      }
+      li .next {
+        color: var(--track);
+        font-size: 11px;
+        margin-top: 2px;
+      }
+      details#caughtUpSection {
+        margin-top: 10px;
+        border-top: 1px solid var(--border-hr);
+        padding-top: 6px;
+      }
+      details#caughtUpSection summary {
+        font-size: 11px;
+        color: var(--secondary);
+        cursor: pointer;
+        outline: none;
+      }
+      #caughtUpList {
+        margin: 6px 0 0;
+        max-height: 150px;
+      }
+      #caughtUpList li {
+        font-size: 11px;
+        padding: 4px 6px;
+      }
+      #caughtUpList li a {
+        color: var(--secondary);
+      }
+      #caughtUpList li a:hover {
+        color: var(--track);
+      }
+      button.complete {
+        width: auto;
+        flex-shrink: 0;
+        padding: 1px 8px;
+        font-size: 10px;
+        white-space: nowrap;
+        color: var(--track);
+      }
+      button.bulk {
+        margin-top: 6px;
+        font-size: 11px;
+        color: var(--track);
+      }
+      button.complete:disabled,
+      button.bulk:disabled {
+        opacity: 0.6;
+        cursor: default;
+      }
+      #caughtUpList li .next {
+        font-size: 10px;
+        opacity: 0.8;
+      }
+      .foot {
+        margin-top: 10px;
+        padding-top: 8px;
+        border-top: 1px solid var(--border-hr);
+        text-align: center;
+        font-size: 11px;
+        color: var(--secondary);
+      }
+      .foot a {
+        color: var(--secondary);
+        text-decoration: none;
+      }
+      .foot a:hover {
+        color: var(--primary-focus);
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="head">
+      <h1>
+        <a href="https://anisnatch.top/home" target="_blank" rel="noopener noreferrer">AniSnatch Watchlist Notifier</a>
+      </h1>
+      <a href="#" id="openSettings" title="Settings">⚙</a>
+    </div>
+    <div id="status">Loading…</div>
+    <button id="checkNow">Check now</button>
+    <ul id="list"></ul>
+    <details id="caughtUpSection" style="display: none">
+      <summary id="caughtUpSummary">Caught up</summary>
+      <div id="bulkRow"></div>
+      <ul id="caughtUpList"></ul>
+    </details>
+    <div class="foot">
+      by Arcturus · <a href="https://ko-fi.com/elyss0n" target="_blank" rel="noopener noreferrer">🍜 Buy me a bowl of ramen</a>
+    </div>
+    <script src="settings.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

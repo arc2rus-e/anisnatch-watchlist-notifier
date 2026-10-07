@@ -1,0 +1,7 @@
+# OS junk (Windows Explorer thumbnail cache etc.)
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Build output -- release zips go on GitHub Releases, not in the repo
+*.zip

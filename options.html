@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>AniSnatch Watchlist Notifier — Settings</title>
+    <style>
+      :root {
+        --primary-bg: #0b1622;
+        --secondary-bg: #151f2e;
+        --primary: #ffe8f6;
+        --secondary: #d8b2ab;
+        --primary-focus: #ffbade;
+        --track: #86e3ce;
+        --menu-bg: rgba(255, 255, 255, 0.05);
+        --menu-focus: rgba(255, 255, 255, 0.075);
+        --border-hr: rgba(255, 255, 255, 0.1);
+      }
+      body {
+        font-family: "Lexend Deca", system-ui, sans-serif;
+        background: var(--primary-bg);
+        color: var(--primary);
+        max-width: 560px;
+        margin: 24px auto;
+        padding: 0 16px;
+        font-size: 13px;
+      }
+      h1 {
+        font-size: 18px;
+        margin: 0 0 4px;
+      }
+      h2 {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--primary-focus);
+        margin: 24px 0 6px;
+      }
+      .intro {
+        color: var(--secondary);
+        margin: 0 0 8px;
+        line-height: 1.5;
+      }
+      .setting {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        padding: 10px 12px;
+        background: var(--secondary-bg);
+        border-bottom: 1px solid var(--border-hr);
+      }
+      .setting .text {
+        min-width: 0;
+      }
+      .setting .label {
+        display: block;
+      }
+      .setting .hint {
+        display: block;
+        color: var(--secondary);
+        font-size: 11px;
+        margin-top: 2px;
+        line-height: 1.4;
+      }
+      input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--primary-focus);
+        flex-shrink: 0;
+      }
+      select,
+      button {
+        font-family: inherit;
+        font-size: 12px;
+        background: var(--menu-bg);
+        color: var(--primary-focus);
+        border: 1px solid var(--border-hr);
+        border-radius: 4px;
+        padding: 5px 8px;
+        cursor: pointer;
+      }
+      select option {
+        background: var(--secondary-bg);
+        color: var(--primary);
+      }
+      button:hover,
+      select:hover {
+        background: var(--menu-focus);
+      }
+      button.danger {
+        color: #ff9a9a;
+      }
+      .actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 12px;
+      }
+      #saved {
+        position: fixed;
+        top: 12px;
+        right: 16px;
+        background: var(--secondary-bg);
+        color: var(--track);
+        border: 1px solid var(--border-hr);
+        border-radius: 4px;
+        padding: 4px 10px;
+        font-size: 12px;
+        opacity: 0;
+        transition: opacity 0.2s;
+      }
+      #saved.show {
+        opacity: 1;
+      }
+      a.tip {
+        display: inline-block;
+        font-size: 12px;
+        background: var(--menu-bg);
+        color: var(--primary-focus);
+        border: 1px solid var(--border-hr);
+        border-radius: 4px;
+        padding: 5px 10px;
+        text-decoration: none;
+      }
+      a.tip:hover {
+        background: var(--menu-focus);
+      }
+      #dataMsg {
+        color: var(--secondary);
+        font-size: 11px;
+        margin-top: 8px;
+        min-height: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>AniSnatch Watchlist Notifier</h1>
+    <p class="intro">
+      Checks your AniSnatch watchlist in the background and tells you when a new episode is out. It uses your own
+      logged-in session, so stay signed in to <a href="https://anisnatch.top" target="_blank" style="color: var(--track)">anisnatch.top</a>
+      in this browser. Changes save automatically.
+    </p>
+    <div id="saved">Saved</div>
+
+    <h2>Checking</h2>
+    <label class="setting">
+      <span class="text">
+        <span class="label">Check automatically</span>
+        <span class="hint">Turn off to pause. “Check now” in the popup still works.</span>
+      </span>
+      <input type="checkbox" data-key="checkEnabled" />
+    </label>
+    <label class="setting">
+      <span class="text">
+        <span class="label">Check every</span>
+        <span class="hint">Each check briefly opens AniSnatch in a background tab.</span>
+      </span>
+      <select data-key="checkIntervalMinutes" data-type="number">
+        <option value="15">15 minutes</option>
+        <option value="30">30 minutes</option>
+        <option value="60">1 hour</option>
+        <option value="120">2 hours</option>
+        <option value="360">6 hours</option>
+        <option value="720">12 hours</option>
+      </select>
+    </label>
+    <label class="setting">
+      <span class="text">
+        <span class="label">Also check when Chrome starts</span>
+      </span>
+      <input type="checkbox" data-key="checkOnStartup" />
+    </label>
+    <label class="setting">
+      <span class="text">
+        <span class="label">Look up next-episode dates &amp; airing status</span>
+        <span class="hint">
+          Separate from the check above: that reads your watchlist page, which has your episode counts but not
+          release dates or airing status. These live only on each show’s own page, so this opens every show’s page
+          once. After that a show is only re-checked once its next-episode date has passed, or every few hours if no
+          date is announced yet. Finished shows are never re-checked. Needed for “Next ep” dates, “Finished airing”
+          and the Mark completed buttons. Off = fewer background tabs; notifications and the badge still work.
+        </span>
+      </span>
+      <input type="checkbox" data-key="lookupNextRelease" />
+    </label>
+
+    <h2>Notifications</h2>
+    <label class="setting">
+      <span class="text">
+        <span class="label">Notify me about new episodes</span>
+      </span>
+      <input type="checkbox" data-key="notificationsEnabled" />
+    </label>
+    <label class="setting">
+      <span class="text">
+        <span class="label">Clicking a notification opens</span>
+      </span>
+      <select data-key="notificationClick">
+        <option value="watch">The episode I’m up to</option>
+        <option value="anime">The show’s page</option>
+      </select>
+    </label>
+    <label class="setting">
+      <span class="text">
+        <span class="label">Badge on the toolbar icon</span>
+        <span class="hint">Shows how many shows you’re behind on.</span>
+      </span>
+      <input type="checkbox" data-key="badgeEnabled" />
+    </label>
+
+    <h2>Popup</h2>
+    <label class="setting">
+      <span class="text">
+        <span class="label">Show the “Caught up” section</span>
+      </span>
+      <input type="checkbox" data-key="showCaughtUp" />
+    </label>
+    <label class="setting">
+      <span class="text">
+        <span class="label">Keep “Caught up” expanded</span>
+      </span>
+      <input type="checkbox" data-key="caughtUpExpanded" />
+    </label>
+    <label class="setting">
+      <span class="text">
+        <span class="label">Show “Mark completed” buttons</span>
+        <span class="hint">
+          For shows that have finished airing and you’ve fully watched. Moves them to Completed in your AniSnatch
+          list (asks you to confirm first).
+        </span>
+      </span>
+      <input type="checkbox" data-key="showCompleteButtons" />
+    </label>
+
+    <h2>Data</h2>
+    <div class="actions">
+      <button id="resetSettings">Reset settings to defaults</button>
+      <button id="clearData" class="danger">Clear saved watchlist data</button>
+    </div>
+    <div id="dataMsg"></div>
+    <p class="intro" style="margin-top: 4px">
+      Clearing data only wipes what this extension remembers. Your AniSnatch list is untouched, and the next check
+      won’t send notifications for episodes that were already out.
+    </p>
+
+    <h2>Support</h2>
+    <p class="intro">
+      Made by Arcturus as a free side project. If it saves you from missing episodes, you can buy me a bowl of ramen — it helps me
+      keep it maintained.
+    </p>
+    <div class="actions" style="margin-top: 0">
+      <a class="tip" href="https://ko-fi.com/elyss0n" target="_blank" rel="noopener noreferrer">🍜 Support on Ko-fi</a>
+    </div>
+
+    <script src="settings.js"></script>
+    <script src="options.js"></script>
+  </body>
+</html>
