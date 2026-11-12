@@ -85,9 +85,8 @@ async function render() {
     epLink.textContent = item.nextEpisode ?? item.available;
     epLink.title = `Watch episode ${item.nextEpisode ?? item.available}`;
     epLink.href = item.watchUrl || item.url || "#";
-    epLink.target = "_blank";
-    epLink.rel = "noopener noreferrer";
     epLink.className = "eplink";
+    setupEpisodeLink(epLink);
     eps.append(epLink);
     if (item.available !== item.nextEpisode || item.total) {
       const detail = document.createElement("span");
@@ -105,6 +104,23 @@ async function render() {
     listEl.appendChild(li);
   });
   listEl.scrollTop = scroll.list;
+}
+
+// Episode links open in a new tab, or (setting off) load in the tab the popup
+// belongs to. Read at click time so a settings change applies straight away.
+function setupEpisodeLink(a) {
+  a.target = "_blank";
+  a.rel = "noopener noreferrer";
+  a.addEventListener("click", async (e) => {
+    if (settings.episodeNewTab || e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return;
+    e.preventDefault();
+    try {
+      await chrome.tabs.update({ url: a.href });
+      window.close();
+    } catch {
+      chrome.tabs.create({ url: a.href });
+    }
+  });
 }
 
 function nextLabel(item) {
@@ -237,6 +253,19 @@ function renderCaughtUp(caughtUp, bulkProgress) {
       a.target = "_blank";
       a.rel = "noopener noreferrer";
       row.append(a);
+      // The episode you stopped at, linking back to it.
+      if (Number.isFinite(item.watched) && item.watched > 0 && item.url) {
+        const eps = document.createElement("span");
+        eps.append("Ep ");
+        const epLink = document.createElement("a");
+        epLink.textContent = item.watched;
+        epLink.title = `Back to episode ${item.watched}`;
+        epLink.href = `${new URL(item.url).origin}/watch/${item.aniId}?ep=${item.watched}`;
+        epLink.className = "eplink";
+        setupEpisodeLink(epLink);
+        eps.append(epLink);
+        row.append(eps);
+      }
       // Only offered once the show has finished airing and you've seen it all.
       if (settings.showCompleteButtons && isReadyToComplete(item)) row.append(makeCompleteButton(item, !!bulkProgress));
 

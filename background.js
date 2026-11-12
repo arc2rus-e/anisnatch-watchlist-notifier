@@ -1,7 +1,7 @@
 importScripts("settings.js");
 
 const CHECK_ALARM = "checkWatchlist";
-const SITE_ORIGIN = "https://anisnatch.top";
+const SITE_ORIGIN = "https://anisnatch.to";
 const WATCHLIST_URL = `${SITE_ORIGIN}/watchlist`;
 const animePageUrl = (aniId) => `${SITE_ORIGIN}/anime/${aniId}`;
 const LOOKUP_BUDGET_MS = 5 * 60 * 1000; // soft deadline for the next-release lookups in one check
@@ -295,7 +295,7 @@ async function checkWatchlist() {
 
     if (!result || !result.ok) {
       await chrome.storage.local.set({
-        lastError: result?.error === "NOT_LOGGED_IN" ? "Not logged in to AniSnatch" : "Check failed (see service worker console)",
+        lastError: result?.error === "NOT_LOGGED_IN" ? "Not logged in to AniSnatch" : `Check failed: ${result?.error || "no result"}`,
       });
       return;
     }
@@ -319,7 +319,9 @@ async function scrapeWatchlist(tabId) {
     return await chrome.tabs.sendMessage(tabId, { type: "CHECK_WATCHLIST" });
   } catch (e) {
     console.warn("[AniSnatch Notifier] content script didn't respond:", e);
-    return null;
+    const tab = await chrome.tabs.get(tabId).catch(() => null);
+    const where = tab?.url ? ` (tab on ${tab.url}, "${tab.title || ""}")` : "";
+    return { ok: false, error: `No response from the AniSnatch page: ${e?.message || e}${where}` };
   }
 }
 

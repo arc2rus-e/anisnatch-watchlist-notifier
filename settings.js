@@ -8,6 +8,7 @@ const DEFAULT_SETTINGS = {
   lookupNextRelease: true, // visit each show's page for its next-episode date / airing status
   notificationsEnabled: true,
   notificationClick: "watch", // "watch" = the episode you're up to, "anime" = the show's page
+  episodeNewTab: true, // false = episode links in the popup open in the current tab instead of a new one
   badgeEnabled: true, // toolbar badge with the number of shows you're behind on
   showCaughtUp: true,
   caughtUpExpanded: false, // open the "Caught up" section by default

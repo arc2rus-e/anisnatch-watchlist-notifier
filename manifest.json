@@ -1,16 +1,16 @@
 {
   "manifest_version": 3,
   "name": "AniSnatch Watchlist Notifier",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Notifies you when a new episode is available for anime in your AniSnatch watchlist. Made by Arcturus.",
   "permissions": ["alarms", "storage", "notifications"],
-  "host_permissions": ["https://anisnatch.top/*"],
+  "host_permissions": ["https://anisnatch.to/*"],
   "background": {
     "service_worker": "background.js"
   },
   "content_scripts": [
     {
-      "matches": ["https://anisnatch.top/*"],
+      "matches": ["https://anisnatch.to/*"],
       "js": ["content.js"],
       "run_at": "document_idle"
     }

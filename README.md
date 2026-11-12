@@ -2,7 +2,7 @@
 
 *Made by **Arcturus***
 
-A small Chrome extension that keeps an eye on your [AniSnatch](https://anisnatch.top) watchlist and tells you when a new episode of something you're watching is out.
+A small Chrome extension that keeps an eye on your [AniSnatch](https://anisnatch.to) watchlist and tells you when a new episode of something you're watching is out.
 
 <p>
   <img src="screenshots/popup.png" alt="The popup: shows you're behind on, next-episode dates, and the Caught up section" width="380">
@@ -17,7 +17,8 @@ A small Chrome extension that keeps an eye on your [AniSnatch](https://anisnatch
 - **Popup list.** Click the icon to see:
   - what you're behind on, with a link straight to the next episode
   - when the next episode is due
-  - a "Caught up" section for everything else
+  - a "Caught up" section for everything else, showing the last episode you watched (click it to go back to it)
+- **Episode links.** They open in a new tab by default. Turn that off in Settings to load the episode in the tab you're already on.
 - **Mark completed.** Shows that have finished airing and that you've fully watched get a "Mark completed" button. There's also a "Mark all" button. They move the show to *Completed* in your AniSnatch list, and each one asks you to confirm first.
 - **Settings.** Click ⚙ in the popup to change how often it checks, turn notifications or the badge off, and more.
 
@@ -31,7 +32,7 @@ The extension isn't on the Chrome Web Store, so you add it by hand. It takes abo
 4. **Click "Load unpacked"**, the button that appears at the top-left.
 5. **Select the extension folder.** Pick the folder that has `manifest.json` directly inside it, not a folder above it. If Chrome says the manifest is missing, you've picked the wrong level.
 6. **Pin it:** click the puzzle-piece icon 🧩 in the toolbar, then the pin next to *AniSnatch Watchlist Notifier*, so the icon stays visible.
-7. **Sign in to [anisnatch.top](https://anisnatch.top)** in the same Chrome, if you aren't already. The extension reads your watchlist through your own login.
+7. **Sign in to [anisnatch.to](https://anisnatch.to)** in the same Chrome, if you aren't already. The extension reads your watchlist through your own login.
 8. **Click the icon, then "Check now"** to fill it in for the first time.
 
 The same steps work in **Edge** (`edge://extensions`, with Developer mode in the left sidebar) and **Brave** (`brave://extensions`).
@@ -49,8 +50,8 @@ On `chrome://extensions`, click **Remove** on the extension's card. You can then
 ## Good to know
 
 - **Background tabs.** To read your watchlist, the extension briefly opens AniSnatch in a background tab and closes it again. The first check after installing also opens each show's page once to fetch next-episode dates, so you'll see a short burst of tabs. After that it's usually none or a few. If you'd rather avoid this, turn off *Look up next-episode dates* in Settings.
-- **Privacy.** Everything stays in your browser. The extension only talks to anisnatch.top, using your existing login, and sends your data nowhere else. Its permissions are alarms (scheduled checks), storage (remembering your list), notifications, and access to anisnatch.top.
-- **Not logged in?** If the popup says *Not logged in to AniSnatch*, sign in on anisnatch.top in the same Chrome and press **Check now**.
+- **Privacy.** Everything stays in your browser. The extension only talks to anisnatch.to, using your existing login, and sends your data nowhere else. Its permissions are alarms (scheduled checks), storage (remembering your list), notifications, and access to anisnatch.to.
+- **Not logged in?** If the popup says *Not logged in to AniSnatch*, sign in on anisnatch.to in the same Chrome and press **Check now**.
 - **No notifications?** On Windows, check Settings → System → Notifications and make sure Google Chrome is allowed and Do Not Disturb or Focus is off. On macOS, check System Settings → Notifications → Google Chrome.
 - **Icon doesn't respond to the first click?** Chrome sometimes needs a moment to wake an idle extension. Click again.
 
